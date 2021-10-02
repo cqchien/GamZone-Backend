@@ -33,3 +33,4 @@ mongoose.connect('mongodb+srv://User:jKAN4AS7ExKbs40K@cluster0.nmd9l.mongodb.net
 });
 
 require("./routes/registration")(app)
+require("./routes/login")(app)
