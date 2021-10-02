@@ -1,0 +1,6 @@
+#  dependencies
+node mdodules
+
+# enviroment variables
+.env*
+!.env*.example
