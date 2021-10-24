@@ -3,10 +3,11 @@ const helmet = require('helmet')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const httpStatus = require('http-status')
-
+const config = require('./src/config/config')
 
 var app = express()
-const AccountModel = require("./models/user")
+const AccountModel = require("./src/models/user")
+const { func } = require("joi")
 
 
 
@@ -16,8 +17,8 @@ app.get("/", function(res,res){
 
 // https://git.heroku.com/gearzone.git
 
-app.listen( process.env.PORT || 3000, function(){
-    console.log("Server start on port ")
+app.listen( config.port, function(){
+    console.log('Server is listening on port ' + config.port)
 })
 
 app.use(function(req, res, next) {
@@ -39,14 +40,22 @@ app.use(express.json({}))
 app.use(cors())
 app.options('*', cors())
 
-mongoose.connect('mongodb+srv://User:jKAN4AS7ExKbs40K@cluster0.nmd9l.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', function (err) {
-    if(err){
-        console.log("Cannot connect to mongodb")
-    }
-    else{
-        console.log("Connection created")
-    }
-});
+mongoose.connect(config.mongoose.url, config.mongoose.options).then(function(){
+    console.log("Connected to MongoDB")
+}).catch(function(err){
+    console.log('Connection failed with err' + err)
+})
 
+// Close server and log
+const exitHandler = () => {
+    if (server) {
+      server.close(() => {
+        logger.info('Server is closed');
+        process.exit(1);
+      });
+    } else {
+      process.exit(1);
+    }
+}
 require("./routes/registration")(app)
 require("./routes/login")(app)
