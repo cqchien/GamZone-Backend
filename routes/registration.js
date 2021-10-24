@@ -1,6 +1,10 @@
 const bcrypt = require('bcryptjs')
 const User = require("../models/user")
 
+
+// name: Tester
+// pass: Tester123
+// email: tester@gmail.com 
 module.exports = function(app){
     app.post("/register", function(req,res){
         User.findOne(
