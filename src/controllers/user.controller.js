@@ -1,6 +1,7 @@
 const httpStatus = require('http-status')
 const bcrypt = require('bcryptjs')
 const getUserByEmailOrId = require('../services/user/getOne.user')
+const Exception = require('../utils/exception')
 
 const register = async (req, res, next) => {
     const { email, password, name } = req.body;
@@ -18,8 +19,8 @@ const register = async (req, res, next) => {
         password,
       });
   
-      // Create Token
-      const token = await generateAuthToken(newUser);
+      // Create Token NOT CREATED YET
+    //   const token = await generateAuthToken(newUser);
   
       return handleSuccess(res, { token }, httpStatus.CREATED);
     } catch (error) {
