@@ -2,7 +2,7 @@ const httpStatus = require('http-status')
 const bcrypt = require('bcryptjs')
 const getUserByEmailOrId = require('../services/user/getOne.user')
 const Exception = require('../utils/exception')
-
+const handleSuccess = require('../utils/successfulHandler')
 const register = async (req, res, next) => {
     const { email, password, name } = req.body;
     try {
