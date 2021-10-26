@@ -5,6 +5,6 @@ const registerValidationSchema = require('../validation/auth.validation')
 
 const router = Router()
 
-router.post('/register', validate(registerValidationSchema), register)
+router.post('/register',validate(registerValidationSchema),register)
 
 module.exports = router

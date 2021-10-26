@@ -30,9 +30,9 @@ app.use(function(req, res, next) {
 });
 
 // Send back a 404 error for any unknown api request
-app.use((req, res, next) => {
-    next(new Exception(httpStatus.NOT_FOUND, 'API Not Found'));
-});
+// app.use((req, res, next) => {
+//     next(new Exception(httpStatus.NOT_FOUND, 'API Not Found'));
+// });
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json({}))
@@ -46,7 +46,7 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(function(){
 }).catch(function(err){
     console.log('Connection failed with err' + err)
 })
-
+app.use('/', router)
 // Close server and log
 // const exitHandler = () => {
 //     if (server) {
@@ -59,6 +59,6 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(function(){
 //     }
 // }
 
-app.use('/', router)
+
 // require("./routes/registration")(app)
 // require("./routes/login")(app)
