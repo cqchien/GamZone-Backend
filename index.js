@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const httpStatus = require('http-status')
 const config = require('./src/config/config')
+const router = require('./routes')
 
 var app = express()
 const AccountModel = require("./src/models/user")
@@ -57,5 +58,7 @@ const exitHandler = () => {
       process.exit(1);
     }
 }
-require("./routes/registration")(app)
-require("./routes/login")(app)
+
+app.use('/', router)
+// require("./routes/registration")(app)
+// require("./routes/login")(app)
