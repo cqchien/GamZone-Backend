@@ -1,10 +1,10 @@
 const Router = require('express')
-const {register} = require('../controllers/user.controller')
+const register = require('../controllers/user.controller')
 const validate = require('../middlewares/validate.middleware')
-const {regiterValidationSchema} = require('../validation/auth.validation')
+const registerValidationSchema = require('../validation/auth.validation')
 
 const router = Router()
 
-router.post('/register', validate(regiterValidationSchema), register)
+router.post('/register', validate(registerValidationSchema), register)
 
 module.exports = router

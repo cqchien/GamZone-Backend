@@ -4,7 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const httpStatus = require('http-status')
 const config = require('./src/config/config')
-const router = require('./routes')
+const router = require('./src/routes')
 
 var app = express()
 const AccountModel = require("./src/models/user")
@@ -48,16 +48,16 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(function(){
 })
 
 // Close server and log
-const exitHandler = () => {
-    if (server) {
-      server.close(() => {
-        logger.info('Server is closed');
-        process.exit(1);
-      });
-    } else {
-      process.exit(1);
-    }
-}
+// const exitHandler = () => {
+//     if (server) {
+//       server.close(() => {
+//         logger.info('Server is closed');
+//         process.exit(1);
+//       });
+//     } else {
+//       process.exit(1);
+//     }
+// }
 
 app.use('/', router)
 // require("./routes/registration")(app)
