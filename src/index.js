@@ -3,11 +3,11 @@ const helmet = require('helmet')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const httpStatus = require('http-status')
-const config = require('./src/config/config')
-const router = require('./src/routes')
+const config = require('./config/config')
+const router = require('./routes')
 
 var app = express()
-const AccountModel = require("./src/models/user")
+const AccountModel = require("./models/user")
 const { func } = require("joi")
 
 
