@@ -4,7 +4,7 @@ const getUserByEmailOrId = require('../services/user/getOne.user')
 const Exception = require('../utils/exception')
 const handleSuccess = require('../utils/successfulHandler')
 const createUser = require('../services/user/create.user')
-
+const generateAuthToken = require('../services/token/generateAuth.Service')
 const register = async (req, res, next) => {
     const { name, password, dob, address, phone, email, avatar } = req.body;
     try {
