@@ -29,4 +29,24 @@ const register = async (req, res, next) => {
     }
   };
 
-  module.exports = register
+  const login = async (req, res, next) => {
+    const { email, password } = req.body;
+    try {
+      // check Email
+      const user = await getUserByEmailOrId({ email });
+  
+      // check password whether match or not
+      const isMatchPassword = await bcrypt.compare(password, user?.password);
+      if (!isMatchPassword || !user) {
+        throw new Exception(httpStatus.UNAUTHORIZED, 'Incorrect Email Or Password');
+      }
+  
+      // create token
+      const token = await generateAuthToken(user);
+  
+      return handleSuccess(res, { token }, httpStatus.CREATED);
+    } catch (error) {
+      next(error);
+    }
+  };
+  module.exports = {register,login}
