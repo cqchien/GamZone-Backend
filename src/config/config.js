@@ -26,5 +26,13 @@ module.exports = {
             // useCreateIndex: true,
             // useFindAndModify: true,
           },
-    }
+    },
+
+    token: {
+        accessExpiration: envVal.JWT_ACCESS_EXPIRATION,
+        refreshExpiration: envVal.JWT_REFRESH_EXPIRATION,
+        secret: envVal.JWT_SECRET,
+      },
+
+    
 }
