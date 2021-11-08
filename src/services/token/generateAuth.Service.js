@@ -9,22 +9,11 @@ const generateAuthToken = async ({ _id }) => {
   // TODO:Set the time expiration for access and refresh token
   // NOTE: moment().add(): Adding time to an existing moment
   const accessTokenExpires = moment().add(tokenConfig.accessExpiration, 'minutes');
-  const refreshTokenExpires = moment().add(tokenConfig.refreshExpiration, 'days');
+
 
   // TODO: Generate token
   // NOTE: Use jwt.sign() to create new token
   const accessToken = generateToken(userId, tokenTypes.ACCESS, accessTokenExpires);
-  const refreshToken = generateToken(userId, tokenTypes.REFRESH, refreshTokenExpires);
-
-  // TODO: Save token in db
-  const tokenDto = {
-    token: refreshToken,
-    user: userId,
-    type: tokenTypes.REFRESH,
-    expires: refreshTokenExpires.toDate(),
-  };
-
-  await saveToken(tokenDto);
 
   // return data
   return {

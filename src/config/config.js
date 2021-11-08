@@ -8,7 +8,9 @@ const envSchema = Joi.object()
     .keys({
         DB_CONN: Joi.string().required().description('Mongo URL'),
         URL_DEPLOY: Joi.string().description('URL which server is deployed.'),
-        PORT: Joi.number().default(3000)
+        PORT: Joi.number().default(3000),
+        SECRET: Joi.string().required().describe('Token Secret'),
+        JWT_ACCESS_EXPIRATION: Joi.number().default(30).description('days after which access tokens expire'),
     })
     
  const { value: envVal, error } = envSchema.prefs({ errors: { label: 'key' } }).validate(process.env);
@@ -30,8 +32,7 @@ module.exports = {
 
     token: {
         accessExpiration: envVal.JWT_ACCESS_EXPIRATION,
-        refreshExpiration: envVal.JWT_REFRESH_EXPIRATION,
-        secret: envVal.JWT_SECRET,
+        secret: envVal.SECRET,
       },
 
     
