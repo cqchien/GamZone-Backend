@@ -36,7 +36,7 @@ const register = async (req, res, next) => {
       const user = await getUserByEmailOrId({ email });
   
       // check password whether match or not
-      const isMatchPassword = await bcrypt.compare(password, user?.password);
+      const isMatchPassword = await bcrypt.compare(password, user.password);
       if (!isMatchPassword || !user) {
         throw new Exception(httpStatus.UNAUTHORIZED, 'Incorrect Email Or Password');
       }
