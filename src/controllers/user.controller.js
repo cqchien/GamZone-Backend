@@ -6,7 +6,7 @@ const handleSuccess = require('../utils/successfulHandler')
 const createUser = require('../services/user/create.user')
 const generateAuthToken = require('../services/token/generateAuth.Service')
 const register = async (req, res, next) => {
-    const { name, password, dob, address, phone, email, avatar } = req.body;
+    const { name, password, email } = req.body;
     try {
       console.log(req.body)
       // Check Email
@@ -17,7 +17,7 @@ const register = async (req, res, next) => {
   
       // Create new User
       const newUser = await createUser({
-        name, password, dob, address, phone, email, avatar
+        name, password, email
       });
   
       // Create Token NOT CREATED YET
