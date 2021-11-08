@@ -9,8 +9,10 @@ const userSchema = new mongoose.Schema({
     phone: {type: String},
     email: {type: String, required: true, unique: true, lowercase: true},
     role: {type: String, enum: [roles.ADMIN, roles.USER], default: 'USER'},
-    avatar: {type: String}
-});
+    avatar: {type: String},
+    
+},
+{timestamps:true});
 
 module.exports =  mongoose.model("User", userSchema);
 

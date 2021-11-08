@@ -20,10 +20,10 @@ const register = async (req, res, next) => {
         name, password, email
       });
   
-      // Create Token NOT CREATED YET
-    //   const token = await generateAuthToken(newUser);
-  
-    return handleSuccess(res, {}, httpStatus.OK, 'Reset Password Successfully');
+    // Create token
+    const token = await generateAuthToken(newUser)
+
+    return handleSuccess(res, {token}, httpStatus.CREATED)
     } catch (error) {
       next(error);
     }
@@ -36,7 +36,7 @@ const register = async (req, res, next) => {
       const user = await getUserByEmailOrId({ email });
   
       // check password whether match or not
-      const isMatchPassword = await bcrypt.compare(password, user.password);
+      const isMatchPassword = await bcrypt.compare(password, user?.password);
       if (!isMatchPassword || !user) {
         throw new Exception(httpStatus.UNAUTHORIZED, 'Incorrect Email Or Password');
       }
