@@ -42,7 +42,7 @@ const register = async (req, res, next) => {
       }
   
       // create token
-      const token = await   (user);
+      const token = await generateAuthToken(user);
       
       return handleSuccess(res, { token }, httpStatus.CREATED);
     } catch (error) {
