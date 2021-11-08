@@ -31,11 +31,7 @@ const generateAuthToken = async ({ _id }) => {
     access: {
       token: accessToken,
       expires: accessTokenExpires.toDate(),
-    },
-    refresh: {
-      token: refreshToken,
-      expires: refreshTokenExpires.toDate(),
-    },
+    }
   };
 };
 
