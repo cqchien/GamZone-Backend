@@ -30,9 +30,9 @@ app.use(function(req, res, next) {
 });
 
 // Send back a 404 error for any unknown api request
-// app.use((req, res, next) => {
-//     next(new Exception(httpStatus.NOT_FOUND, 'API Not Found'));
-// });
+app.use((req, res, next) => {
+    next(new Exception(httpStatus.NOT_FOUND, 'API Not Found'));
+});
 
 app.use(express.urlencoded({extended:false}))
 app.use(express.json({}))
@@ -58,7 +58,3 @@ app.use('/', router)
 //       process.exit(1);
 //     }
 // }
-
-
-// require("./routes/registration")(app)
-// require("./routes/login")(app)
