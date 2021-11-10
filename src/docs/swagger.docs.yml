@@ -55,7 +55,56 @@ paths:
         '401':
           description: Unauthorize
 
+/product/createProduct:
+    post:
+      summary: Create new Product
+      tags: 
+        - product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+                price:
+                  type: string
+                shortDescription:
+                  type: string
+                SKU:
+                  type: string
+                quantity:
+                  type: number
+      responses:
+        '201':
+          summary: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Data'
+        '401':
+          description: Unauthorize
 
+/product/getAllProducts:
+    get:
+      summary: Get All Products
+      tags: 
+        - product
+      requestBody:
+        required: false
+        content:
+          application/json:
+      responses:
+        '201':
+          summary: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Data'
+        '401':
+          description: Unauthorize
 components:
   schemas:
     User:
@@ -78,6 +127,30 @@ components:
           enum: [user,admin]
         avatar:
           type: string
+
+    Product:
+        type: object
+        properties:
+          _id:
+            type: string
+          name:
+            type: string
+          price:
+            type: string
+          description:
+            type: string
+          shortDescription:
+            type: string
+          SKU:
+            type: string
+          rating:
+            type: string
+          quantity:
+            type: number
+          image:
+            type: [string]
+          
+          
     Data: 
       type: object
       properties:
