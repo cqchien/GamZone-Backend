@@ -29,12 +29,12 @@ const productSchema = new mongoose.Schema(
         type: Number,
         required: true
     },
-    // images:{
-    //     info:[
-    //         { type: string, 
-    //         }
-    //         ],
-    // }
+    images:
+        [
+            { type: String, 
+            }
+        ],
+    
   },
   { timestamps: true }, 
 );
