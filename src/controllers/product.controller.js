@@ -3,6 +3,7 @@ const Exception = require('../utils/exception')
 const handleSuccess = require('../utils/successfulHandler')
 const createNewProduct = require('../services/product/create.product')
 const getProductBySKUOrId = require('../services/product/getOne.product')
+const getProductsList = require('../services/product/getAll.product')
 const createProduct = async (req, res, next) => {
     const { name, price,shortDescription,SKU,quantity } = req.body;
     try {
@@ -24,4 +25,14 @@ const createProduct = async (req, res, next) => {
     }
   };
 
-module.exports = {createProduct}
+const getALlProducts = async(req,res,next) => {
+    try {
+        const productList = await getProductsList()
+
+        return handleSuccess(res, {productList}, httpStatus.CREATED)
+    }
+    catch(err){
+        next(err)
+    }
+}
+module.exports = {createProduct, getALlProducts}
