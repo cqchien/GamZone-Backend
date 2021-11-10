@@ -1,7 +1,7 @@
 const httpStatus = require('http-status')
 const Exception = require('../utils/exception')
 const handleSuccess = require('../utils/successfulHandler')
-const createProduct = require('../services/product/create.product')
+const createNewProduct = require('../services/product/create.product')
 const getProductBySKUOrId = require('../services/product/getOne.product')
 const createProduct = async (req, res, next) => {
     const { name, price,shortDescription,SKU,quantity } = req.body;
@@ -13,7 +13,7 @@ const createProduct = async (req, res, next) => {
       }
   
       // Create new User
-      const newProduct = await createProduct({
+      const newProduct = await createNewProduct({
         name, price,shortDescription,SKU,quantity
       });
   
@@ -23,3 +23,5 @@ const createProduct = async (req, res, next) => {
       next(error);
     }
   };
+
+module.exports = {createProduct}

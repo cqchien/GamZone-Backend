@@ -1,4 +1,4 @@
-const Product = require('../../models/user')
+const Product = require('../../models/product.model')
 
 const getProductBySKUOrId = async ({ id, SKU }) => {
     const _id = id;

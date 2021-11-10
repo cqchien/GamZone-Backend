@@ -7,3 +7,5 @@ const createProductValidationSchema = Joi.object().keys({
   SKU: Joi.string().required(),
   quantity: Joi.string().required()
 });
+
+module.exports = {createProductValidationSchema}

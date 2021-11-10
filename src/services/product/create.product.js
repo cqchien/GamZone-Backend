@@ -19,4 +19,4 @@ const createProduct = async ({
     return newProduct;
   };
 
-module.exports = {createProduct}
+module.exports = createProduct
