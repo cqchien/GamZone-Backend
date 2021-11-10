@@ -11,14 +11,10 @@ const {
 
 const router = Router();
 
-router.get("/getAllProducts", getAllProducts);
+router.get("/", getAllProducts);
 
 router.use(checkToken);
 
-router.post(
-  "/createProduct",
-  validate(createProductValidationSchema),
-  createProduct
-);
+router.post("/", validate(createProductValidationSchema), createProduct);
 
 module.exports = router;

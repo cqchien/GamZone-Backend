@@ -2,7 +2,7 @@ paths:
   /auth/register:
     post:
       summary: Register To System
-      tags: 
+      tags:
         - auth
       requestBody:
         required: true
@@ -13,25 +13,25 @@ paths:
               properties:
                 name:
                   type: string
-                email: 
+                email:
                   type: string
                   format: email
                 password:
                   type: string
       responses:
-        '201':
+        "201":
           summary: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Data'
-        '409':
+                $ref: "#/components/schemas/Data"
+        "409":
           description: Conflict
-          
+
   /auth/login:
     post:
       summary: Login To System
-      tags: 
+      tags:
         - auth
       requestBody:
         required: true
@@ -40,26 +40,28 @@ paths:
             schema:
               type: object
               properties:
-                email: 
+                email:
                   type: string
                   format: email
                 password:
                   type: string
       responses:
-        '201':
+        "201":
           summary: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Data'
-        '401':
+                $ref: "#/components/schemas/Data"
+        "401":
           description: Unauthorize
 
-/product/createProduct:
+  /product:
     post:
       summary: Create new Product
-      tags: 
+      tags:
         - product
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -67,7 +69,7 @@ paths:
             schema:
               type: object
               properties:
-                name: 
+                name:
                   type: string
                 price:
                   type: string
@@ -78,34 +80,39 @@ paths:
                 quantity:
                   type: number
       responses:
-        '201':
+        "201":
           summary: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Data'
-        '401':
+                $ref: "#/components/schemas/Data"
+        "401":
           description: Unauthorize
 
-/product/getAllProducts:
     get:
       summary: Get All Products
-      tags: 
+      tags:
         - product
       requestBody:
         required: false
         content:
           application/json:
       responses:
-        '201':
+        "201":
           summary: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Data'
-        '401':
+                $ref: "#/components/schemas/Data"
+        "401":
           description: Unauthorize
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     User:
       type: object
@@ -124,42 +131,41 @@ components:
           type: string
         role:
           type: string
-          enum: [user,admin]
+          enum: [user, admin]
         avatar:
           type: string
 
     Product:
-        type: object
-        properties:
-          _id:
-            type: string
-          name:
-            type: string
-          price:
-            type: string
-          description:
-            type: string
-          shortDescription:
-            type: string
-          SKU:
-            type: string
-          rating:
-            type: string
-          quantity:
-            type: number
-          image:
-            type: [string]
-          
-          
-    Data: 
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        price:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        SKU:
+          type: string
+        rating:
+          type: string
+        quantity:
+          type: number
+        image:
+          type: [string]
+
+    Data:
       type: object
       properties:
         success:
           type: boolean
         statusCode:
           type: number
-        data: 
-            type: object
+        data:
+          type: object
         message:
           type: string
         pagination:
