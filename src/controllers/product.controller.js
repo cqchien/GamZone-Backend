@@ -2,25 +2,23 @@ const httpStatus = require('http-status')
 const Exception = require('../utils/exception')
 const handleSuccess = require('../utils/successfulHandler')
 const createProduct = require('../services/product/create.product')
-
+const getProductBySKUOrId = require('../services/product/getOne.product')
 const createProduct = async (req, res, next) => {
-    const { name, password, email } = req.body;
+    const { name, price,shortDescription,SKU,quantity } = req.body;
     try {
-      // Check Email
-      const user = await getUserByEmailOrId({ email });
-      if (user) {
-        throw new Exception(httpStatus.CONFLICT, 'Email Already Taken');
+      // Check whether SKU is available
+      const product = await getProductBySKUOrId({ SKU });
+      if (product) {
+        throw new Exception(httpStatus.CONFLICT, 'SKU has already taken');
       }
   
       // Create new User
-      const newUser = await createUser({
-        name, password, email
+      const newProduct = await createProduct({
+        name, price,shortDescription,SKU,quantity
       });
   
-    // Create token
-    const token = await generateAuthToken(newUser)
 
-    return handleSuccess(res, {token}, httpStatus.CREATED)
+    return handleSuccess(res, {newProduct}, httpStatus.CREATED)
     } catch (error) {
       next(error);
     }
