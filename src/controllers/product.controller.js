@@ -4,6 +4,7 @@ const handleSuccess = require('../utils/successfulHandler')
 const createNewProduct = require('../services/product/create.product')
 const getProductBySKUOrId = require('../services/product/getOne.product')
 const getProductsList = require('../services/product/getAll.product')
+
 const createProduct = async (req, res, next) => {
     const { name, price,shortDescription,SKU,quantity } = req.body;
     try {
@@ -25,7 +26,7 @@ const createProduct = async (req, res, next) => {
     }
   };
 
-const getALlProducts = async(req,res,next) => {
+const getAllProducts = async(req,res,next) => {
     try {
         const productList = await getProductsList()
 
@@ -35,4 +36,4 @@ const getALlProducts = async(req,res,next) => {
         next(err)
     }
 }
-module.exports = {createProduct, getALlProducts}
+module.exports = {createProduct, getAllProducts}
