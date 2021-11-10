@@ -23,8 +23,7 @@ const productSchema = mongoose.Schema(
         required: true,
     },
     rating:{
-        type: String,
-        required: true
+        type: String
     },
     quantity:{
         type: Number,
@@ -36,7 +35,6 @@ const productSchema = mongoose.Schema(
             required: true, 
             }
             ],
-        required: true
     }
   },
   { timestamps: true }, 
