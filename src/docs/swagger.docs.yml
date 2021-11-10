@@ -19,9 +19,6 @@ paths:
                 password:
                   type: string
       responses:
-        # '200':
-        #   summary: OK
-        #   description: Send token successfully
         '201':
           summary: Created
           content:

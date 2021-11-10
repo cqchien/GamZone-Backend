@@ -61,7 +61,7 @@ const options = {
         info:{
             title: "Library API",
             version: "1.0.0",
-            description: "A simple Express Library API"
+            description: "GearZone Library API"
         },
         servers:[
             {
