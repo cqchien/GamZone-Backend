@@ -1,0 +1,96 @@
+paths:
+  /auth/register:
+    post:
+      summary: Register To System
+      tags: 
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email: 
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        # '200':
+        #   summary: OK
+        #   description: Send token successfully
+        '201':
+          summary: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Data'
+        '409':
+          description: Conflict
+          
+  /auth/login:
+    post:
+      summary: Login To System
+      tags: 
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '201':
+          summary: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Data'
+        '401':
+          description: Unauthorize
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        password:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum: [user,admin]
+        avatar:
+          type: string
+    Data: 
+      type: object
+      properties:
+        success:
+          type: boolean
+        statusCode:
+          type: number
+        data: 
+            type: object
+        message:
+          type: string
+        pagination:
+          tye: string
