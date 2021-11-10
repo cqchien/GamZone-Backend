@@ -65,7 +65,7 @@ const options = {
         },
         servers:[
             {
-                url: "localhost:3000"
+                url: "https://gearzone.herokuapp.com/"
             }
         ],
     },
