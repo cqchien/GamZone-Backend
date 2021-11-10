@@ -5,26 +5,6 @@ const { registerValidationSchema,loginValidationSchema } = require("../validatio
 
 const router = Router();
 
-/**
-  * @swagger
-  * tags:
-  *   name: Auth
-  *   description: Register and Loin API
-  */
-
-
-/**
- * @swagger
- * /auth/register:
- *   post:
- *     summary: Return token of users after successfully registration
- *     tags: [Auth]
- *     responses:
- *       200:
- *         description: 
- *         content:
- *           application/json:
- */
 router.post("/register", validate(registerValidationSchema), register);
 
 router.post('/login', validate(loginValidationSchema), login);
