@@ -109,6 +109,30 @@ components:
           enum: [user,admin]
         avatar:
           type: string
+
+    Product:
+        type: object
+        properties:
+          _id:
+            type: string
+          name:
+            type: string
+          price:
+            type: string
+          description:
+            type: string
+          shortDescription:
+            type: string
+          SKU:
+            type: string
+          rating:
+            type: string
+          quantity:
+            type: number
+          image:
+            type: [string]
+          
+          
     Data: 
       type: object
       properties:
