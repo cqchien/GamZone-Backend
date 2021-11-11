@@ -1,12 +1,12 @@
-const Product = require('../../models/product.model')
+const Product = require("../../models/product.model");
 
 const getProductBySKUOrId = async ({ id, SKU }) => {
-    const _id = id;
-    const query = _id ? { _id } : { SKU };
-    // get all data from table
-    const product = await Product.findOne(query);
-  
-    return product;
-  };
+  const _id = id;
+  const query = _id ? { _id } : { SKU };
+  // get all data from table
+  const product = await Product.findOne(query);
 
-module.exports = getProductBySKUOrId
+  return product;
+};
+
+module.exports = getProductBySKUOrId;

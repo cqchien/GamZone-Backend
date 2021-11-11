@@ -9,7 +9,7 @@ const envSchema = Joi.object()
     DB_CONN: Joi.string().required().description("Mongo URL"),
     PORT: Joi.number().default(3000),
     SECRET: Joi.string().required().description("Token Secret"),
-    JWT_ACCESS_EXPIRATION: Joi.string().description(
+    JWT_ACCESS_EXPIRATION: Joi.number().description(
       "days after which access tokens expire"
     ),
   })
