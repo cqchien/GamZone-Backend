@@ -1,5 +1,4 @@
-const { string, required } = require('joi');
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
@@ -18,25 +17,20 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    SKU:{
-        type: String,
-        required: true,
+    SKU: {
+      type: String,
+      required: true,
     },
-    rating:{
-        type: String
+    rating: {
+      type: String,
     },
-    quantity:{
-        type: Number,
-        required: true
+    quantity: {
+      type: Number,
+      required: true,
     },
-    images:
-        [
-            { type: String, 
-            }
-        ],
-    
+    images: [{ type: String }],
   },
-  { timestamps: true }, 
+  { timestamps: true }
 );
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model("Product", productSchema);
