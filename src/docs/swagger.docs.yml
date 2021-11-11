@@ -18,6 +18,8 @@ paths:
                   format: email
                 password:
                   type: string
+                role: 
+                  type: string
       responses:
         "201":
           summary: Created
