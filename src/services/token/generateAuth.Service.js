@@ -4,7 +4,7 @@ const tokenTypes = require('../../constant/token');
 const generateToken = require('./generate.service');
 const saveToken = require('./save.service');
 
-const generateAuthToken = async ({ _id }) => {
+const generateAuthToken = async ({ _id, role }) => {
   const userId = _id;
   // TODO:Set the time expiration for access and refresh token
   // NOTE: moment().add(): Adding time to an existing moment
@@ -13,7 +13,7 @@ const generateAuthToken = async ({ _id }) => {
 
   // TODO: Generate token
   // NOTE: Use jwt.sign() to create new token
-  const accessToken = generateToken(userId, tokenTypes.ACCESS, accessTokenExpires);
+  const accessToken = generateToken(userId, role, tokenTypes.ACCESS, accessTokenExpires);
 
   // return data
   return {

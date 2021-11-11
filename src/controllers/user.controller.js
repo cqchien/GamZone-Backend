@@ -5,10 +5,10 @@ const Exception = require("../utils/exception");
 const handleSuccess = require("../utils/successfulHandler");
 const createUser = require("../services/user/create.user");
 const generateAuthToken = require("../services/token/generateAuth.Service");
+
 const register = async (req, res, next) => {
-  const { name, password, email } = req.body;
+  const { name, password, email, role } = req.body;
   try {
-    console.log(req.body);
     // Check Email
     const user = await getUserByEmailOrId({ email });
     if (user) {
@@ -20,6 +20,7 @@ const register = async (req, res, next) => {
       name,
       password,
       email,
+      role,
     });
 
     // Create token

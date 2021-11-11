@@ -1,8 +1,7 @@
-const jwt = require('jsonwebtoken');
-const { token: tokenConfig } = require('../../config/config');
+const jwt = require("jsonwebtoken");
+const { token: tokenConfig } = require("../../config/config");
 
-
-const generateToken = (userId, type, expires) => {
+const generateToken = (userId, role, type, expires) => {
   // TODO: get secret key of user from config.
   // NOTE: This likes the signature of user. Auth Server will check token base on this signature
   const sign = tokenConfig.secret;
@@ -11,6 +10,7 @@ const generateToken = (userId, type, expires) => {
   // NOTE: moment().unix(): to create a moment from a Unix timestamp
   const payload = {
     id: userId,
+    role,
     exp: expires.unix(),
     type,
   };
