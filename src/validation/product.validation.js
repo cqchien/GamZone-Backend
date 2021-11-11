@@ -1,3 +1,4 @@
+const { string } = require("joi");
 const Joi = require("joi");
 
 const createProductValidationSchema = {
@@ -15,10 +16,10 @@ const updateProductValidationSchema = {
     name: Joi.string(),
     price: Joi.string(),
     description: Joi.string(),
-    shortDescription: Joi.string().required(),
-    SKU: Joi.string().required(),
-    quantity: Joi.number().required(),
-    images: Joi.array().string()
+    shortDescription: Joi.string(),
+    SKU: Joi.string(),
+    quantity: Joi.number(),
+    images: Joi.array().items(Joi.string())
   }),
 };
 
