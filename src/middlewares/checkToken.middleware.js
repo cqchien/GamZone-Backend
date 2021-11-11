@@ -4,7 +4,7 @@ const Exception = require('../utils/exception');
 const verifyToken = require('../utils/verifyToken');
 
 const checkToken = async (req, res, next) => {
-  const token = req.headers?.authorization?.split(' ')[1];
+  const token = req.headers.authorization.split(' ')[1];
 
   if (!token) {
     next(new Exception(httpStatus.FORBIDDEN, 'No Token Provided.'));

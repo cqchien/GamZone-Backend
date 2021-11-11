@@ -37,7 +37,7 @@ const login = async (req, res, next) => {
   try {
     // check Email
     const user = await getUserByEmailOrId({ email });
-    const userPassword = user?.password ? user.password : "";
+    const userPassword = user.password ? user.password : "";
     // check password whether match or not
     const isMatchPassword = await bcrypt.compare(password, userPassword);
     if (!isMatchPassword || !user) {
