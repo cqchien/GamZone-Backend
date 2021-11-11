@@ -12,7 +12,7 @@ const createProductValidationSchema = {
 };
 
 const updateProductValidationSchema = {
-  params: Joi.object().keys({
+  body: Joi.object().keys({
     name: Joi.string(),
     price: Joi.string(),
     description: Joi.string(),
