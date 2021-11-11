@@ -7,34 +7,15 @@ const swaggerJsDoc = require("swagger-jsdoc");
 const httpStatus = require("http-status");
 const config = require("./config/config");
 const router = require("./routes");
+const { convertException, handleException } = require('./middlewares/exception.middleware');
+const Exception = require("./utils/exception");
 
 var app = express();
-const AccountModel = require("./models/user");
-const { func } = require("joi");
-
 // https://git.heroku.com/gearzone.git
 
 app.listen(config.port, function () {
   console.log("Server is listening on port " + config.port);
 });
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
-// Send back a 404 error for any unknown api request
-// app.use((req, res, next) => {
-//     next(new Exception(httpStatus.NOT_FOUND, 'API Not Found'));
-// });
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json({}));
@@ -51,18 +32,8 @@ mongoose
   .catch(function (err) {
     console.log("Connection failed with err" + err);
   });
+
 app.use("/", router);
-// Close server and log
-// const exitHandler = () => {
-//     if (server) {
-//       server.close(() => {
-//         logger.info('Server is closed');
-//         process.exit(1);
-//       });
-//     } else {
-//       process.exit(1);
-//     }
-// }
 
 const options = {
   definition: {
@@ -91,3 +62,14 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.get("/", function (res, res) {
   res.json("Home");
 });
+
+// Send back a 404 error for any unknown api request
+app.use((req, res, next) => {
+  next(new Exception(httpStatus.NOT_FOUND, 'API Not Found'));
+});
+
+// Convert other error to Exception
+app.use(convertException);
+
+// Handle error to send to user
+app.use(handleException);
