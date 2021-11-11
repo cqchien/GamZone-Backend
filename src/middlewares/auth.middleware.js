@@ -1,17 +1,20 @@
-const httpStatus = require('http-status');
-const Joi = require('joi');
-const Exception = require('../utils/exception');
+const httpStatus = require("http-status");
+const Exception = require("../utils/exception");
 
-const validate = (schema) => (req, res, next) => {
-  const { error } = Joi.compile(schema)
-    .prefs({ errors: { label: 'key' } })
-    .validate(req.body);
-  // handle error
-  if (error) {
-    const errorMessages = error.details.map((errorDetail) => errorDetail.message).join('; ');
-    return next(new Exception(httpStatus.BAD_REQUEST, errorMessages));
-  }
-  return next();
-};
+const authorize =
+  (roles = []) =>
+  (req, res, next) => {
+    const { role } = req.user;
 
-module.exports = validate;
+    if (typeof roles === "string") {
+      roles = [roles];
+    }
+
+    if (roles.length && !roles.includes(role)) {
+      next(new Exception(httpStatus.FORBIDDEN, "You Do not Permission"));
+    }
+
+    next();
+  };
+
+module.exports = authorize;
