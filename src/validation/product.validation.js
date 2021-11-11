@@ -10,4 +10,16 @@ const createProductValidationSchema = {
   }),
 };
 
-module.exports = { createProductValidationSchema };
+const updateProductValidationSchema = {
+  params: Joi.object().keys({
+    name: Joi.string(),
+    price: Joi.string(),
+    description: Joi.string(),
+    shortDescription: Joi.string().required(),
+    SKU: Joi.string().required(),
+    quantity: Joi.number().required(),
+    images: Joi.array().string()
+  }),
+};
+
+module.exports = { createProductValidationSchema, updateProductValidationSchema };
