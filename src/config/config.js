@@ -1,39 +1,40 @@
-const dotenv = require('dotenv')
-const path = require('path')
-const Joi = require('joi')
+const dotenv = require("dotenv");
+const path = require("path");
+const Joi = require("joi");
 
-dotenv.config({path: path.join(__dirname, '../../.env')})
+dotenv.config({ path: path.join(__dirname, "../../.env") });
 
 const envSchema = Joi.object()
-    .keys({
-        DB_CONN: Joi.string().required().description('Mongo URL'),
-        URL_DEPLOY: Joi.string().description('URL which server is deployed.'),
-        PORT: Joi.number().default(3000),
-        SECRET: Joi.string().required().describe('Token Secret'),
-        JWT_ACCESS_EXPIRATION: Joi.number().default(30).description('days after which access tokens expire'),
-    })
-    
- const { value: envVal, error } = envSchema.prefs({ errors: { label: 'key' } }).validate(process.env);
+  .keys({
+    DB_CONN: Joi.string().required().description("Mongo URL"),
+    PORT: Joi.number().default(3000),
+    SECRET: Joi.string().required().description("Token Secret"),
+    JWT_ACCESS_EXPIRATION: Joi.string().description(
+      "days after which access tokens expire"
+    ),
+  })
+  .unknown();
+
+const { value: envVal, error } = envSchema
+  .prefs({ errors: { label: "key" } })
+  .validate(process.env);
+
+if (error) {
+  throw new Error(`Config validation error: ${error.message}`);
+}
 
 module.exports = {
-    port: envVal.PORT,
-    // server: {
-    //     URL_DEPLOY: this.envVal.URL_DEPLOY
-    // },
-    mongoose: {
-        url: envVal.DB_CONN,
-        options: {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            // useCreateIndex: true,
-            // useFindAndModify: true,
-          },
+  port: envVal.PORT,
+  mongoose: {
+    url: envVal.DB_CONN,
+    options: {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     },
+  },
 
-    token: {
-        accessExpiration: envVal.JWT_ACCESS_EXPIRATION,
-        secret: envVal.SECRET,
-      },
-
-    
-}
+  token: {
+    accessExpiration: envVal.JWT_ACCESS_EXPIRATION,
+    secret: envVal.SECRET,
+  },
+};
