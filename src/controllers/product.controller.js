@@ -4,6 +4,7 @@ const handleSuccess = require('../utils/successfulHandler')
 const createNewProduct = require('../services/product/create.product')
 const getProductBySKUOrId = require('../services/product/getOne.product')
 const getProductsList = require('../services/product/getAll.product')
+const updateProduct = require('../services/product/update.product')
 
 const createProduct = async (req, res, next) => {
     const { name, price,shortDescription,SKU,quantity } = req.body;
@@ -36,4 +37,19 @@ const getAllProducts = async(req,res,next) => {
         next(err)
     }
 }
-module.exports = {createProduct, getAllProducts}
+
+const updateProductInfo = async(req,res,next) => {
+  try{
+    const productID = req.params.id
+
+    const updatedData = req.body
+    
+    const updatedProduct = await updateProduct(productID,updatedData)
+    
+    return handleSuccess(res,"Product Updated", httpStatus.CREATED)
+  }
+  catch(err){
+    next(err)
+  }
+}
+module.exports = {createProduct, getAllProducts, updateProductInfo}
