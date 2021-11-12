@@ -18,7 +18,7 @@ paths:
                   format: email
                 password:
                   type: string
-                role: 
+                role:
                   type: string
       responses:
         "201":
@@ -102,6 +102,23 @@ paths:
       responses:
         "201":
           summary: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Data"
+        "401":
+          description: Unauthorize
+
+  /user/me:
+    get:
+      summary: Get detail information of user
+      tags:
+        - user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          summary: OK
           content:
             application/json:
               schema:
