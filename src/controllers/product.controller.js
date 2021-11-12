@@ -41,11 +41,12 @@ const getAllProducts = async(req,res,next) => {
 const updateProductInfo = async(req,res,next) => {
   try{
     const productID = req.params.id
-    const updatedData = req.body
 
-    const updatedProduct = updateProduct(productID,updatedData)
+    const updatedData = req.body
     
-    return handleSuccess(res,{updateProduct}, httpStatus.CREATED)
+    const updatedProduct = await updateProduct(productID,updatedData)
+    
+    return handleSuccess(res,"Product Updated", httpStatus.CREATED)
   }
   catch(err){
     next(err)

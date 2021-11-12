@@ -12,13 +12,13 @@ const createProductValidationSchema = {
 
 const updateProductValidationSchema = {
   body: Joi.object().keys({
-    name: Joi.string(),
-    price: Joi.string(),
-    description: Joi.string(),
-    shortDescription: Joi.string(),
-    SKU: Joi.string(),
-    quantity: Joi.number(),
-    images: Joi.array().items(Joi.string())
+    name: Joi.string().required().empty(''),
+    price: Joi.string().required().empty(''),
+    description: Joi.string().required().empty(''),
+    shortDescription: Joi.string().required().empty(''),
+    SKU: Joi.string().required().empty(''),
+    quantity: Joi.number().required().empty(''),
+    images: Joi.array().items(Joi.string()).required().empty('')
   }),
 };
 
