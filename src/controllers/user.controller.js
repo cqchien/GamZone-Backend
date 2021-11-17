@@ -55,4 +55,18 @@ const login = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { register, login };
+
+const getProfile = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const user = await getUserByEmailOrId({ id: userId });
+    if (!user) {
+      throw new Exception(httpStatus.NOT_FOUND, "User Not Found");
+    }
+
+    return handleSuccess(res, { user }, httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { register, login, getProfile };

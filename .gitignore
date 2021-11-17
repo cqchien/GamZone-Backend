@@ -4,3 +4,4 @@ node_modules
 # enviroment variables
 .env*
 !.env*.example
+yarn.lock

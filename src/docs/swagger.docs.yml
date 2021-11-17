@@ -18,7 +18,7 @@ paths:
                   format: email
                 password:
                   type: string
-                role: 
+                role:
                   type: string
       responses:
         "201":
@@ -109,6 +109,7 @@ paths:
         "401":
           description: Unauthorize
 
+<<<<<<< HEAD
     patch:
       summary: Update Product
       tags:
@@ -135,6 +136,18 @@ paths:
       responses:
         "201":
           summary: Created
+=======
+  /user/me:
+    get:
+      summary: Get detail information of user
+      tags:
+        - user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          summary: OK
+>>>>>>> 36dec934249af0ad539c097a9a69dd9c35fff09f
           content:
             application/json:
               schema:
