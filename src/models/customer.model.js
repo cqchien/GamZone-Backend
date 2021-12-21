@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const roles = require("../constant/role");
 
-const userSchema = new mongoose.Schema(
+const customerSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -18,16 +17,16 @@ const userSchema = new mongoose.Schema(
     phone: {
       type: String,
     },
+    status: {
+      type: String,
+      enum: ['ACTIVE', 'BAN'],
+      default: 'ACTIVE'
+    },
     email: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
-    },
-    role: {
-      type: String,
-      enum: [roles.ADMIN, roles.USER],
-      default: "USER",
     },
     avatar: {
       type: String,
@@ -36,4 +35,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", userSchema);
+const CustomerModel = mongoose.model('customer', customerSchema, 'customers');
+
+module.exports = CustomerModel;

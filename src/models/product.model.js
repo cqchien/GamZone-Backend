@@ -1,36 +1,61 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const productSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-    },
-    shortDescription: {
-      type: String,
-      required: true,
-    },
-    SKU: {
-      type: String,
-      required: true,
-    },
-    rating: {
-      type: String,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-    images: [{ type: String }],
+// Note: Lược đồ thông tin chung cho các loại sản phẩm
+const productSchema = new Schema({
+  // mã sản phẩm, vd: "SKU200500854"
+  SKU: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
   },
-  { timestamps: true }
+
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
+  price: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+
+  brand: { type: String, require: true, trim: true },
+
+  images: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
+  desc: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'category',
+    required: true, 
+  },
+  // số lượng sản phẩm tồn kho
+  quantity: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+});
+
+// text search index
+productSchema.index(
+  { name: 'text', brand: 'text' },
+  { name: 'ix_search_text', default_language: 'none' },
 );
 
-module.exports = mongoose.model("Product", productSchema);
+const ProductModel = mongoose.model('product', productSchema, 'products');
+
+module.exports = ProductModel;
