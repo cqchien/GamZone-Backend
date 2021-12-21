@@ -2,6 +2,7 @@ const AdminModel = require("../../models/admin.model");
 const CategoryModel = require("../../models/category.model");
 const CustomerModel = require("../../models/customer.model");
 const ProductModel = require("../../models/product.model");
+const SpecificationModel = require("../../models/specification.model");
 
 const getCustomerByEmailOrId = async ({ id, email, type }) => {
   const _id = id;
@@ -17,6 +18,14 @@ const getCustomerByEmailOrId = async ({ id, email, type }) => {
   //   quantity: 5,
   //   images: 'https://res.cloudinary.com/tuan-cloudinary/image/upload/v1609819999/products/SKU200500856/qos7n5ffrx3q2bdvzwo6.webp'
   // })
+
+  // await SpecificationModel.create({product: '61c20286f7e7e48ac7780c5b', title: 'number_of_cpu', desc: '8'})
+  // await SpecificationModel.create({product: '61c20286f7e7e48ac7780c5b', title: 'series', desc: 'Core i5'})
+  // await SpecificationModel.create({product: '61c20286f7e7e48ac7780c5b', title: 'chip', desc: 'Intel'})
+  // await SpecificationModel.create({product: '61c20286f7e7e48ac7780c5b', title: 'monitor', desc: '15.6" FHD'})
+  // await SpecificationModel.create({product: '61c20286f7e7e48ac7780c5b', title: 'weight', desc: '1.4'})
+  // await SpecificationModel.create({product: '61c20286f7e7e48ac7780c5b', title: 'graphic_card', desc: 'Intel UHD'})
+  // await SpecificationModel.create({product: '61c20286f7e7e48ac7780c5b', title: 'other', desc: '9750H up to 4.5 GHz'})
 
   return user;
 };
