@@ -1,16 +1,16 @@
 const bcrypt = require("bcryptjs");
-const User = require("../../models/user");
+const AdminModel = require("../../models/admin.model");
+const CustomerModel = require("../../models/customer.model");
 
-const createUser = async ({ name, password, email, role }) => {
+const createCustomer = async ({ name, password, email, role }) => {
   const hash = bcrypt.hashSync(password, 10);
-  const newUser = await User.create({
+  const newCustomer = await CustomerModel.create({
     name,
     password: hash,
-    role,
     email,
   });
 
-  return newUser;
+  return newCustomer;
 };
 
-module.exports = createUser;
+module.exports = createCustomer;

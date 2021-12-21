@@ -2,7 +2,6 @@ const moment = require('moment');
 const { token: tokenConfig } = require('../../config/config');
 const tokenTypes = require('../../constant/token');
 const generateToken = require('./generate.service');
-const saveToken = require('./save.service');
 
 const generateAuthToken = async ({ _id, role }) => {
   const userId = _id;
@@ -17,10 +16,8 @@ const generateAuthToken = async ({ _id, role }) => {
 
   // return data
   return {
-    access: {
-      token: accessToken,
-      expires: accessTokenExpires.toDate(),
-    }
+    token: accessToken,
+    expires: accessTokenExpires.toDate(),
   };
 };
 

@@ -9,4 +9,6 @@ router.post("/register", validate(registerValidationSchema), register);
 
 router.post('/login', validate(loginValidationSchema), login);
 
+router.post('/login-admin', validate(loginValidationSchema), login);
+
 module.exports = router;
