@@ -3,8 +3,6 @@ const { getAllProducts } = require("../controllers/product.controller");
 const checkToken = require("../middlewares/checkToken.middleware");
 
 const router = Router();
-router.use(checkToken);
-
 // api: lấy danh sách và phân trang
 router.get('/all', getAllProducts);
 
