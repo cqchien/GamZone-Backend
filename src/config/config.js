@@ -7,7 +7,7 @@ dotenv.config({ path: path.join(__dirname, "../../.env") });
 const envSchema = Joi.object()
   .keys({
     DB_CONN: Joi.string().required().description("Mongo URL"),
-    PORT: Joi.number().default(3000),
+    PORT: Joi.number().default(3001),
     SECRET: Joi.string().required().description("Token Secret"),
     JWT_ACCESS_EXPIRATION: Joi.number().description(
       "days after which access tokens expire"
