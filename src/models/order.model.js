@@ -7,15 +7,24 @@ const orderSchema = new Schema({
   owner: { type: Schema.Types.ObjectId, required: true, ref: 'customer' },
 
   // địa chỉ giao nhận
-  billingAddress: {
+  deliveryAddress: {
     type: String, required: true,
   },
+
+  receiver: {
+    type: String, required: true,
+  },
+
+  receiverPhone: {
+    type: String, required: true,
+  },
+
 
   // mã đơn hàng
   orderCode: { type: String, unique: true, required: true },
 
   // sản phẩm lúc mua
-  orderProd: [{
+  orderProds: [{
     // số lượng
     numOfProd: { type: Number, required: true, default: 1 },
     product: {
