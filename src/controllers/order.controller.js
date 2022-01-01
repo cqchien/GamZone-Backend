@@ -56,7 +56,18 @@ const getListOrdersOfCustomer = async (req, res, next) => {
   }
 };
 
+const getOrderDetail = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const order = await OrderModel.findOne({ _id: id }).populate('orderProds.product');
+    if (!order) {
+      throw new Exception(httpStatus.NOT_FOUND, 'Order not found');
+    }
+    return handleSuccess(res, { order }, httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
+};
 
 
-
-module.exports = { createOrder, getListOrdersOfCustomer }
+module.exports = { createOrder, getListOrdersOfCustomer, getOrderDetail }
