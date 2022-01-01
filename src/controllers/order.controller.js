@@ -86,7 +86,7 @@ const getListOrderForAdmin = async (req, res, next) => {
     if (!admin) {
       throw new Exception(httpStatus.UNAUTHORIZED, 'Not permission');
     }
-    const orders = await OrderModel.find();
+    const orders = await OrderModel.find().populate('owner');
     let orderList = [];
     for (let index = 0; index < orders.length; index++) {
       const orderId = orders[index]._id;
