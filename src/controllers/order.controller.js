@@ -43,7 +43,20 @@ const createOrder = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+}
+
+const getListOrdersOfCustomer = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const orderList = await OrderModel.find({ owner: id }).populate('orderProds.product');
+
+    return handleSuccess(res, { orderList }, httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
 };
 
 
-module.exports = { createOrder };
+
+
+module.exports = { createOrder, getListOrdersOfCustomer }
