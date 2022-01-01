@@ -5,6 +5,7 @@ const OrderDetailModel = require("../models/orderDetail.model");
 const Exception = require("../utils/exception");
 const generateVerifyCode = require("../utils/generateCodeOrder");
 const handleSuccess = require("../utils/successfulHandler");
+const AdminModel = require("../models/admin.model");
 
 const createOrder = async (req, res, next) => {
   const { owner, deliveryAddress, receiver, receiverPhone, orderProds, paymentMethod, transportFee, transportMethod, note } = req.body;
@@ -77,6 +78,52 @@ const getListOrdersOfCustomer = async (req, res, next) => {
   }
 };
 
+const getListOrderForAdmin = async (req, res, next) => {
+  try {
+    const { adminId } = req.body;
+
+    const admin = await AdminModel.findOne({ _id: adminId });
+    if (!admin) {
+      throw new Exception(httpStatus.UNAUTHORIZED, 'Not permission');
+    }
+    const orders = await OrderModel.find();
+    let orderList = [];
+    for (let index = 0; index < orders.length; index++) {
+      const orderId = orders[index]._id;
+      const orderDetail = await OrderDetailModel.find({ order: orderId }).populate('product');
+
+      const dataFormat = {
+        ...orders[index]._doc,
+        orderProds: orderDetail.map((order) => {
+          return { product: order.product, numOfProd: order.quantity }
+        }),
+      };
+      orderList.push(dataFormat);
+    }
+    return handleSuccess(res, { orderList }, httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateOrderStatusForAdmin = async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    const { orderStatus, adminId } = req.body;
+
+    const admin = await AdminModel.findOne({ _id: adminId });
+    if (!admin) {
+      throw new Exception(httpStatus.UNAUTHORIZED, 'Not permission');
+    }
+
+    await OrderModel.updateOne({ _id: id }, { orderStatus });
+
+    return handleSuccess(res, {}, httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getOrderDetail = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -87,13 +134,13 @@ const getOrderDetail = async (req, res, next) => {
     let order = {};
     const orderDetail = await OrderDetailModel.find({ order: orderInfo._id }).populate('product');
 
-      const dataFormat = {
-        ...orderInfo._doc,
-        orderProds: orderDetail.map((order) => {
-          return { product: order.product, numOfProd: order.quantity }
-        }),
-      };
-      order = {...dataFormat};
+    const dataFormat = {
+      ...orderInfo._doc,
+      orderProds: orderDetail.map((order) => {
+        return { product: order.product, numOfProd: order.quantity }
+      }),
+    };
+    order = { ...dataFormat };
     return handleSuccess(res, { order }, httpStatus.OK);
   } catch (error) {
     next(error);
@@ -101,4 +148,4 @@ const getOrderDetail = async (req, res, next) => {
 };
 
 
-module.exports = { createOrder, getListOrdersOfCustomer, getOrderDetail }
+module.exports = { createOrder, getListOrdersOfCustomer, getOrderDetail, getListOrderForAdmin, updateOrderStatusForAdmin }

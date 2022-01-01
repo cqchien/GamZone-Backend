@@ -74,7 +74,7 @@ const loginAdmin = async (req, res, next) => {
     // create token
     const token = await generateAuthToken(user);
 
-    return handleSuccess(res, { token }, httpStatus.CREATED);
+    return handleSuccess(res, { token, admin: user }, httpStatus.CREATED);
   } catch (error) {
     next(error);
   }
