@@ -1,12 +1,10 @@
 const httpStatus = require("http-status");
 const OrderModel = require("../models/order.model");
-const ProductModel = require("../models/product.model");
-const OrderDetailModel = require("../models/orderDetail.model");
 const Exception = require("../utils/exception");
 const handleSuccess = require("../utils/successfulHandler");
 const AdminModel = require("../models/admin.model");
 
-const DoStatisticMonthlyRevenue = async (req, res, next) => {
+const doStatisticMonthlyRevenue = async (req, res, next) => {
   try {
     const { year } = req.query;
     const { adminId } = req.query;
@@ -59,7 +57,7 @@ const DoStatisticMonthlyRevenue = async (req, res, next) => {
   }
 };
 
-const DoStatisticAnnualRevenue = async (req, res, next) => {
+const doStatisticAnnualRevenue = async (req, res, next) => {
   try {
     const { startYear, endYear } = req.query;
     const { adminId } = req.query;
@@ -93,4 +91,4 @@ const DoStatisticAnnualRevenue = async (req, res, next) => {
   }
 };
 
-module.exports = { DoStatisticMonthlyRevenue, DoStatisticAnnualRevenue }
+module.exports = { doStatisticMonthlyRevenue, doStatisticAnnualRevenue }
