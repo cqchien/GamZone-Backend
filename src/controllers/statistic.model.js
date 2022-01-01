@@ -80,7 +80,7 @@ const doStatisticAnnualRevenue = async (req, res, next) => {
     ];
     if (orderList) {
       orderList.forEach((item) => {
-        const resIndex = parseInt(endYear) - new Date(item.createdAt).getFullYear();
+        const resIndex = new Date(item.createdAt).getFullYear() - parseInt(startYear);
         result[resIndex] += item.total;
       });
     }
