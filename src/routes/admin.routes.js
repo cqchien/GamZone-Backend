@@ -7,6 +7,6 @@ const router = Router();
 
 router.get("/order", getListOrderForAdmin);
 
-router.get("/order/:id", updateOrderStatusForAdmin);
+router.post("/order/:id", updateOrderStatusForAdmin);
 
 module.exports = router;
