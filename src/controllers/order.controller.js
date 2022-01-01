@@ -84,7 +84,7 @@ const getOrderDetail = async (req, res, next) => {
     if (!orderInfo) {
       throw new Exception(httpStatus.NOT_FOUND, 'Order not found');
     }
-    const order = [];
+    let order = {};
     const orderDetail = await OrderDetailModel.find({ order: orderInfo._id }).populate('product');
 
       const dataFormat = {
@@ -93,7 +93,7 @@ const getOrderDetail = async (req, res, next) => {
           return { product: order.product, numOfProd: order.quantity }
         }),
       };
-      order.push(dataFormat);
+      order = {...dataFormat};
     return handleSuccess(res, { order }, httpStatus.OK);
   } catch (error) {
     next(error);
