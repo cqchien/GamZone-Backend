@@ -22,15 +22,7 @@ const orderSchema = new Schema({
 
   // mã đơn hàng
   orderCode: { type: String, unique: true, required: true },
-
-  // sản phẩm lúc mua
-  orderProds: [{
-    // số lượng
-    numOfProd: { type: Number, required: true, default: 1 },
-    product: {
-      type: Schema.Types.ObjectId, required: true, ref: 'product'
-    }
-  }],
+  
   // trạng thái đơn hàng
   // 0 - Đặt hàng thành công, 1 - TTB đã tiếp nhận, 2 - Đang lấy hàng, 3 - Đóng gói xong
   // 4 - Bàn giao vận chuyển, 5 - Đang vận chuyển, 6 - Giao hàng thành công
