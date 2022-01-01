@@ -25,7 +25,7 @@ const createOrder = async (req, res, next) => {
       );
       totalMoney += productDetail.price*numOfProd;
     };
-
+    
     const order = await OrderModel.create({
       owner,
       deliveryAddress,
@@ -36,7 +36,7 @@ const createOrder = async (req, res, next) => {
       paymentMethod,
       transportFee,
       transportMethod,
-      total: totalMoney,
+      total: totalMoney*110/100 + transportFee,
       note,
     });
     return handleSuccess(res, { order }, httpStatus.CREATED);
