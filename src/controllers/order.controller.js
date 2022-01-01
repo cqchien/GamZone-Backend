@@ -80,7 +80,7 @@ const getListOrdersOfCustomer = async (req, res, next) => {
 
 const getListOrderForAdmin = async (req, res, next) => {
   try {
-    const { adminId } = req.params;
+    const { adminId } = req.query;
 
     const admin = await AdminModel.findOne({ _id: adminId });
     if (!admin) {
@@ -108,7 +108,8 @@ const getListOrderForAdmin = async (req, res, next) => {
 
 const updateOrderStatusForAdmin = async (req, res, next) => {
   try {
-    const { id, adminId } = req.params;
+    const { id } = req.params;
+    const { adminId } = req.query;
     const { orderStatus } = req.body;
 
     const admin = await AdminModel.findOne({ _id: adminId });
