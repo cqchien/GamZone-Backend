@@ -23,7 +23,7 @@ const createOrder = async (req, res, next) => {
         { _id: product },
         { quantity: productDetail.quantity - parseInt(numOfProd) },
       );
-      totalMoney += productDetail.price
+      totalMoney += productDetail.price*numOfProd;
     };
 
     const order = await OrderModel.create({
