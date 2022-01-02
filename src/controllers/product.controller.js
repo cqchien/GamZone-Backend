@@ -86,14 +86,14 @@ const deleteProductByAdmin = async (req, res, next) => {
       throw new Exception(httpStatus.UNAUTHORIZED, 'Not permission');
     }
 
-    const product = await ProductModel.findOne({ _id: id });
+    const productDetail = await ProductModel.findOne({ _id: id });
 
-    if (!product) {
+    if (!productDetail) {
       throw new Exception(httpStatus.NOT_FOUND, "Product Not Found");
     }
 
-    await SpecificationModel.deleteMany({ product: product._id });
-    await ProductModel.deleteOne({ _id: product.id });
+    await SpecificationModel.deleteMany({ product: id });
+    await ProductModel.deleteOne({ _id: id });
     // Trả về
     return handleSuccess(res, {}, httpStatus.OK);
   } catch (error) {
