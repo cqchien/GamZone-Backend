@@ -56,7 +56,54 @@ const getProduct = async (req, res, next) => {
   }
 };
 
+const updateProductByAdmin = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { adminId } = req.query;
+    const { ...rest } = product;
+
+    const admin = await AdminModel.findOne({ _id: adminId });
+    if (!admin) {
+      throw new Exception(httpStatus.UNAUTHORIZED, 'Not permission');
+    }
+
+    await ProductModel.updateOne({ _id: id }, { ...rest });
+
+    // Trả về
+    return handleSuccess(res, {}, httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
+}
+
+const deleteProductByAdmin = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { adminId } = req.query;
+
+    const admin = await AdminModel.findOne({ _id: adminId });
+    if (!admin) {
+      throw new Exception(httpStatus.UNAUTHORIZED, 'Not permission');
+    }
+
+    const product = await ProductModel.findOne({ _id: id });
+
+    if (!product) {
+      throw new Exception(httpStatus.NOT_FOUND, "Product Not Found");
+    }
+
+    await SpecificationModel.deleteMany({ product: product._id });
+    await ProductModel.deleteOne({ _id: product.id });
+    // Trả về
+    return handleSuccess(res, {}, httpStatus.OK);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   getAllProducts,
-  getProduct
+  getProduct,
+  updateProductByAdmin,
+  deleteProductByAdmin
 };
