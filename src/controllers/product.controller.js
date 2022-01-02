@@ -1,4 +1,5 @@
 const httpStatus = require("http-status");
+const AdminModel = require("../models/admin.model");
 const ProductModel = require("../models/product.model");
 const SpecificationModel = require("../models/specification.model");
 const Exception = require("../utils/exception");
