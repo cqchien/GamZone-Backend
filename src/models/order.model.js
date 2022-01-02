@@ -25,10 +25,10 @@ const orderSchema = new Schema({
   
   // trạng thái đơn hàng
   // 0 - Đặt hàng thành công, 1 - TTB đã tiếp nhận, 2 - Đang lấy hàng, 3 - Đóng gói xong
-  // 4 - Bàn giao vận chuyển, 5 - Đang vận chuyển, 6 - Giao hàng thành công
+  // 4 - Bàn giao vận chuyển, 5 - Đang vận chuyển, 6 - Giao hàng thành công, 7 - Hủy
   orderStatus: {
     type: Number,
-    enum: [...Array(7).keys()],
+    enum: [...Array(8).keys()],
     required: true,
     default: 0,
   },

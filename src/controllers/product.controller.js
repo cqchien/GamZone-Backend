@@ -61,7 +61,7 @@ const updateProductByAdmin = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { adminId } = req.query;
-    const { ...rest } = product;
+    const { ...rest } = req.body;
 
     const admin = await AdminModel.findOne({ _id: adminId });
     if (!admin) {
