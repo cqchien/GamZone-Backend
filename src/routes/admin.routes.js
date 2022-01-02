@@ -13,6 +13,6 @@ router.post("/order/:id", updateOrderStatusForAdmin);
 router.get("/monthly-revenue", doStatisticMonthlyRevenue);
 router.get("/annual-revenue", doStatisticAnnualRevenue);
 
-router.delete("/product", updateProductByAdmin)
-router.patch("/product", deleteProductByAdmin)
+router.delete("/product/:id", updateProductByAdmin)
+router.patch("/product/:id", deleteProductByAdmin)
 module.exports = router;
